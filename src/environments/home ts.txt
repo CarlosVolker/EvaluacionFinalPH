@@ -1,0 +1,46 @@
+  publicaciones: Publicacion[] = [];
+
+  constructor(
+    private dataservicio: PublicacionesListService,
+    private modalController: ModalController,
+    private router: Router
+    ) 
+  {
+    addIcons({addCircle, trashOutline})
+  }
+
+  async ngOnInit() {
+    await this.dataservicio.getPublicacion();
+    await this._actualizar();
+  }
+
+  async _actualizar() {
+    this.publicaciones = await this.dataservicio.getPublicacion();
+  }
+  async eliminarPublicacion(id: number): Promise<void> {
+    if (id !== undefined) {
+      const modal = await this.modalController.create({
+        component: ModalEliminar,
+      });
+  
+      modal.onDidDismiss().then((result) => {
+        if (result.data === true) {
+          console.log('ID a eliminar:', id);
+          this.dataservicio.eliminarPublicacion(id);
+          this._actualizar();
+        } else {
+          console.log('Eliminación cancelada.');
+        }
+      });
+  
+      return await modal.present();
+    } else {
+      console.error('ID no definido. No se puede eliminar.');
+    }
+  }
+
+  agregarPublicacion() {
+    this.router.navigate(['gestionpublicacion']);
+  }
+
+}

@@ -1,0 +1,17 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Confirmar Eliminación</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="contenedor"  fullscreen>
+  <div class="label-container">
+    <ion-label>¿Estás seguro de que deseas eliminar esta publicación?</ion-label>
+    <ion-label>Esta Acción es irreversible</ion-label>
+  </div>
+  <div class="button-container">
+    <ion-button id="botonConfirmar" (click)="confirmarEliminacion(true)">Aceptar</ion-button>
+    <ion-button id="botonEliminar" (click)="confirmarEliminacion(false)">Cancelar</ion-button>
+  </div>
+</ion-content>
